@@ -22,7 +22,7 @@
         <constructor-arg index="0" ref="fileNameProvider"/>
     </bean>
     <bean id="fileNameProvider" class="ru.otus.hw.config.AppProperties">
-        <constructor-arg index="0" value="testFileName"/>
+        <constructor-arg index="0" value="questions.csv"/>
     </bean>
 
 </beans>

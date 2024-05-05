@@ -6,10 +6,5 @@ import lombok.Data;
 @AllArgsConstructor
 @Data
 public class AppProperties implements TestFileNameProvider {
-    private String testFileName;
-
-    @Override
-    public String getTestFileName() {
-        return "questions.csv";
-    }
+    private final String testFileName;
 }

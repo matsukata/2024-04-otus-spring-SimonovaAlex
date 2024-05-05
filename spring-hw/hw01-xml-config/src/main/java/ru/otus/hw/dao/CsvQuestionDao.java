@@ -18,28 +18,30 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @RequiredArgsConstructor
 public class CsvQuestionDao implements QuestionDao {
     private static final String ERROR = "При обработке файла возникла непредвиденная ошибка";
+
+    private static final char SEPARATOR = ';';
+
     private final TestFileNameProvider fileNameProvider;
 
 
     @Override
     public List<Question> findAll() {
         List<Question> questions = new ArrayList<>();
-        try {
-            InputStream resourceAsStream = CsvQuestionDao.class.getClassLoader().getResourceAsStream(fileNameProvider.getTestFileName());
-            assert resourceAsStream != null;
-
-            try (BufferedReader reader = new BufferedReader(new InputStreamReader(resourceAsStream))) {
-                CSVParser csvParser = new CSVParserBuilder().withSeparator(';').build();
-                CSVReader csvReader = new CSVReaderBuilder(reader).withCSVParser(csvParser).withSkipLines(1).build();
-                CsvToBean<QuestionDto> cb = new CsvToBeanBuilder<QuestionDto>(csvReader)
-                        .withType(QuestionDto.class)
-                        .build();
-                cb.stream().forEach(questionDto -> questions.add(questionDto.toDomainObject()));
-            }
+        try (InputStream resourceAsStream = Objects.requireNonNull(
+                CsvQuestionDao.class.getClassLoader().getResourceAsStream(fileNameProvider.getTestFileName()))
+        ) {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(resourceAsStream));
+            CSVParser csvParser = new CSVParserBuilder().withSeparator(SEPARATOR).build();
+            CSVReader csvReader = new CSVReaderBuilder(reader).withCSVParser(csvParser).withSkipLines(1).build();
+            CsvToBean<QuestionDto> cb = new CsvToBeanBuilder<QuestionDto>(csvReader)
+                    .withType(QuestionDto.class)
+                    .build();
+            cb.stream().forEach(questionDto -> questions.add(questionDto.toDomainObject()));
         } catch (IOException e) {
             throw new QuestionReadException(ERROR, e);
         }
