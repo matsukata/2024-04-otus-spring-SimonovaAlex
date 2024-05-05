@@ -2,14 +2,9 @@ package ru.otus.hw.service;
 
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import java.io.PrintStream;
-
-import static org.junit.jupiter.api.Assertions.*;
 @Configuration
 @RequiredArgsConstructor
 class StreamsIOServiceTest {
