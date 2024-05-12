@@ -17,8 +17,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ExtendWith(MockitoExtension.class)
 @RequiredArgsConstructor
 public class CsvQuestionDaoTest {
+
     @Mock
-    AppProperties fileNameProviderMock;
+    private AppProperties fileNameProviderMock;
 
     @Test
     void findAll() {
