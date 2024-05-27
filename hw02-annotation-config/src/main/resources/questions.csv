@@ -1,0 +1,4 @@
+# Добавить сюда своих вопросов. Эту строку надо пропустить при настройке CsvToBean (withSkipLines)
+Where was Cleopatra from?;No, not Egypt. She was actually Greek!%true|From Egypt%false|Who is she?%false
+What is the part of our body that never stops growing?;Ears%true|Tongue%false|Skin?%false
+Which vegetable has more genes than humans?;It's impossible%false|broccoli?%false|tomatoes%true|my favourite cucumber%false
