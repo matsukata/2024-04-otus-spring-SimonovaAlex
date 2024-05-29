@@ -3,7 +3,6 @@ package ru.otus.hw.dao;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import ru.otus.hw.config.AppProperties;
 import ru.otus.hw.domain.Answer;
 import ru.otus.hw.domain.Question;
 
@@ -13,9 +12,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 class CsvQuestionDaoTest {
-    @Autowired
-    private AppProperties fileNameProvider;
-
     @Autowired
     private CsvQuestionDao csvQuestionDao;
 
