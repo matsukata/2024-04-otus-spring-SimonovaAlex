@@ -17,21 +17,18 @@ public class TestServiceImpl implements TestService {
 
     private static final int INCREMENT = 1;
 
-    private final IOService ioService;
+    private final LocalizedIOService ioService;
 
     private final QuestionDao questionDao;
 
     @Override
     public TestResult executeTestFor(Student student) {
-//        ioService.printLine("");
-//        ioService.printLineLocalized("TestService.answer.the.questions");
-//        ioService.printLine("");
         ioService.printLine("");
-        ioService.printFormattedLine("Please answer the questions below%n");
+        ioService.printLineLocalized("TestService.answer.the.questions");
+        ioService.printLine("");
 
         var questions = questionDao.findAll();
         var testResult = new TestResult(student);
-
         try {
             for (var question : questions) {
                 var isAnswerValid = false;
@@ -39,14 +36,13 @@ public class TestServiceImpl implements TestService {
                 ioService.printLine("");
                 List<Answer> answers = question.answers();
                 printNumberedAnswers(answers);
-                ioService.printLine("Copy past number of a right answer");
-                int number = ioService.readIntForRange(MIN, question.answers().size(), "Your answer is out of range");
+                int number = ioService.readIntForRangeLocalized(MIN, question.answers().size(), "TestService.error");
                 Answer answer = answers.get(--number);
                 isAnswerValid = answer.isCorrect();
                 testResult.applyAnswer(question, isAnswerValid);
             }
         } catch (IllegalArgumentException e) {
-            ioService.printLine("Try another time");
+            ioService.printLineLocalized("TestService.cheer.up");
         }
         return testResult;
     }
@@ -56,5 +52,4 @@ public class TestServiceImpl implements TestService {
             ioService.printFormattedLine("%d. %s%n", i + INCREMENT, answers.get(i).text());
         }
     }
-
 }

@@ -9,11 +9,9 @@ import java.util.Locale;
 import java.util.Map;
 
 
-@ConfigurationProperties(prefix = "application")
+@ConfigurationProperties(prefix = "test")
 @Setter
 @AllArgsConstructor
-// Использовать @ConfigurationProperties.
-// Сейчас класс соответствует файлу настроек. Чтобы они сюда отобразились нужно только правильно разместить аннотации
 public class AppProperties implements TestConfig, TestFileNameProvider, LocaleConfig {
 
     @Getter
