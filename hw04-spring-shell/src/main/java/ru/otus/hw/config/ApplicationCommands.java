@@ -21,6 +21,7 @@ public class ApplicationCommands {
 
     private final LocalizedIOServiceImpl localizedIOService;
 
+
     @ShellMethod(value = "Login command", key = {"l", "login"})
     public void login(@ShellOption(defaultValue = "AnyUser") String userName) {
         loginContext.login(userName);
@@ -36,6 +37,7 @@ public class ApplicationCommands {
     private Availability isTestCommandAvailable() {
         return loginContext.isUserLoggedIn()
                 ? Availability.available()
-                : Availability.unavailable("Сначала залогиньтесь");
+                : Availability.unavailable(localizedIOService.getMessage("ApplicationCommands.login"));
     }
+
 }
