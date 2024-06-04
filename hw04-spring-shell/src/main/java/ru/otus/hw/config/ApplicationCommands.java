@@ -1,30 +1,39 @@
 package ru.otus.hw.config;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.shell.Availability;
 import org.springframework.shell.standard.ShellComponent;
+import org.springframework.shell.standard.ShellMethod;
+import org.springframework.shell.standard.ShellMethodAvailability;
+import org.springframework.shell.standard.ShellOption;
+import ru.otus.hw.security.LoginContext;
+import ru.otus.hw.service.LocalizedIOServiceImpl;
+import ru.otus.hw.service.TestRunnerService;
 
-import javax.security.auth.login.LoginContext;
 
 @ShellComponent(value = "Application Commands")
 @RequiredArgsConstructor
 public class ApplicationCommands {
 
+    private final TestRunnerService testRunnerService;
+
     private final LoginContext loginContext;
 
+    private final LocalizedIOServiceImpl localizedIOService;
+
     @ShellMethod(value = "Login command", key = {"l", "login"})
-    public String login(@ShellOption(defaultValue = "AnyUser") String userName) {
+    public void login(@ShellOption(defaultValue = "AnyUser") String userName) {
         loginContext.login(userName);
-        return String.format("Добро пожаловать: %s", userName);
+        localizedIOService.printFormattedLineLocalized("ApplicationCommands.welcome", userName);
     }
 
-    @ShellMethod(value = "Login command", key = {"login"})
-    @ShellMethodAvailability(value = "isLoginCommandAvailable")
-    public String publishEvent() {
-        eventsPublisher.publish();
-        return "Событие опубликовано";
+    @ShellMethod(value = "Start testing", key = {"t", "test"})
+    @ShellMethodAvailability(value = "isTestCommandAvailable")
+    public void startTesting() {
+        testRunnerService.run();
     }
 
-    private Availability isPublishEventCommandAvailable() {
+    private Availability isTestCommandAvailable() {
         return loginContext.isUserLoggedIn()
                 ? Availability.available()
                 : Availability.unavailable("Сначала залогиньтесь");
