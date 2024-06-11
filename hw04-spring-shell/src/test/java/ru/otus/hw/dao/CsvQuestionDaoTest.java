@@ -12,7 +12,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest(properties = "spring.shell.interactive.enabled=false")
+@SpringBootTest
 class CsvQuestionDaoTest {
     @Autowired
     private CsvQuestionDao csvQuestionDao;
