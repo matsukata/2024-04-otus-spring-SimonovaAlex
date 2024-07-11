@@ -11,6 +11,7 @@ import ru.otus.hw.repositories.GenreRepository;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.UUID;
 
 import static org.springframework.util.CollectionUtils.isEmpty;
 
@@ -24,7 +25,7 @@ public class BookServiceImpl implements BookService {
     private final BookRepository bookRepository;
 
     @Override
-    public Optional<Book> findById(long id) {
+    public Optional<Book> findById(UUID id) {
         return bookRepository.findById(id);
     }
 
@@ -34,21 +35,21 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Book insert(String title, long authorId, Set<Long> genresIds) {
-        return save(0, title, authorId, genresIds);
+    public Book insert(String title, UUID authorId, Set<UUID> genresIds) {
+        return save(null, title, authorId, genresIds);
     }
 
     @Override
-    public Book update(long id, String title, long authorId, Set<Long> genresIds) {
+    public Book update(UUID id, String title, UUID authorId, Set<UUID> genresIds) {
         return save(id, title, authorId, genresIds);
     }
 
     @Override
-    public void deleteById(long id) {
+    public void deleteById(UUID id) {
         bookRepository.deleteById(id);
     }
 
-    private Book save(long id, String title, long authorId, Set<Long> genresIds) {
+    private Book save(UUID id, String title, UUID authorId, Set<UUID> genresIds) {
         if (isEmpty(genresIds)) {
             throw new IllegalArgumentException("Genres ids must not be null");
         }

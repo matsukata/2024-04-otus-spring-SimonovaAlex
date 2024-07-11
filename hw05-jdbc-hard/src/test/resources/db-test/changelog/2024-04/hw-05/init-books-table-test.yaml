@@ -1,0 +1,105 @@
+databaseChangeLog:
+
+  - property:
+      contextFilter: test
+      name: changelog_name
+      value: init_books_test
+      global: false
+
+  - changeSet:
+      id: ${changelog_name}_00
+      author: simonova
+      changes:
+        - tagDatabase:
+            tag: ${changelog_name}_start
+
+  - changeSet:
+      dbms: h2
+      id: ${changelog_name}_01
+      author: simonova
+      preConditions:
+        - onFail: MARK_RAN
+        - tableExist: books
+          and:
+            - sqlCheck:
+                expectedResult: 0
+                sql: select count(*) from testdb.books where books.title = 'Title_1'
+
+
+      changes:
+        - insert:
+            tableName: books
+            columns:
+              - column:
+                  name: id
+                  valueComputed: random_uuid()
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: title
+                  value: 'Title_1'
+              - column:
+                  name: author_id
+                  valueComputed: (select a.id from authors a where a.full_name = 'Author_1')
+
+  - changeSet:
+      dbms: h2
+      id: ${changelog_name}_02
+      author: simonova
+      preConditions:
+        - onFail: MARK_RAN
+        - tableExist: books
+          and:
+            - sqlCheck:
+                expectedResult: 0
+                sql: select count(*) from testdb.books where books.title = 'Title_2'
+
+
+      changes:
+        - insert:
+            tableName: books
+            columns:
+              - column:
+                  name: id
+                  valueComputed: random_uuid()
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: title
+                  value: 'Title_2'
+              - column:
+                  name: author_id
+                  valueComputed: (select a.id from authors a where a.full_name = 'Author_2')
+
+
+  - changeSet:
+      dbms: h2
+      id: ${changelog_name}_03
+      author: simonova
+      preConditions:
+        - onFail: MARK_RAN
+        - tableExist: books
+          and:
+            - sqlCheck:
+                expectedResult: 0
+                sql: select count(*) from testdb.books where books.title = 'Title_3'
+
+
+      changes:
+        - insert:
+            tableName: books
+            columns:
+              - column:
+                  name: id
+                  valueComputed: random_uuid()
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: title
+                  value: 'Title_3'
+              - column:
+                  name: author_id
+                  valueComputed: (select a.id from authors a where a.full_name = 'Author_3')

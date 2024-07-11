@@ -1,0 +1,38 @@
+databaseChangeLog:
+
+  - property:
+      name: changelog_name
+      value: create_genres
+      global: false
+
+  - changeSet:
+      id: ${changelog_name}_00
+      author: simonova
+      changes:
+        - tagDatabase:
+            tag: ${changelog_name}_start
+
+  - changeSet:
+      dbms: h2
+      id: ${changelog_name}_01
+      author: simonova
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+            - tableExists:
+                tableName: genres
+      changes:
+        - createTable: # создаем новую таблицу
+            tableName: genres
+            columns: # объявления колонок
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false

@@ -1,0 +1,96 @@
+databaseChangeLog:
+
+  - property:
+      name: changelog_name
+      value: init_authors
+      global: false
+
+  - changeSet:
+      id: ${changelog_name}_00
+      author: simonova
+      changes:
+        - tagDatabase:
+            tag: ${changelog_name}_start
+
+  - changeSet:
+      dbms: h2
+      id: ${changelog_name}_01
+      author: simonova
+      preConditions:
+        - onFail: MARK_RAN
+        - tableExist: authors
+          and:
+            - sqlCheck:
+                expectedResult: 0
+                sql: select count(*) from library.authors where authors.full_name = 'David Allen'
+
+
+      changes:
+        - insert:
+            tableName: authors
+            columns:
+              - column:
+                  name: id
+                  valueComputed: random_uuid()
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: full_name
+                  value: 'David Allen'
+
+  - changeSet:
+      dbms: h2
+      id: ${changelog_name}_02
+      author: simonova
+      preConditions:
+        - onFail: MARK_RAN
+        - tableExist: authors
+          and:
+            - sqlCheck:
+                expectedResult: 0
+                sql: select count(*) from library.authors where authors.full_name = 'Tony Robbins'
+
+
+      changes:
+        - insert:
+            tableName: authors
+            columns:
+              - column:
+                  name: id
+                  valueComputed: random_uuid()
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: full_name
+                  value: 'Tony Robbins'
+
+
+  - changeSet:
+      dbms: h2
+      id: ${changelog_name}_03
+      author: simonova
+      preConditions:
+        - onFail: MARK_RAN
+        - tableExist: authors
+          and:
+            - sqlCheck:
+                expectedResult: 0
+                sql: select count(*) from library.authors where authors.full_name = 'Brian Tracy'
+
+
+      changes:
+        - insert:
+            tableName: authors
+            columns:
+              - column:
+                  name: id
+                  valueComputed: random_uuid()
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: full_name
+                  value: 'Brian Tracy'
+

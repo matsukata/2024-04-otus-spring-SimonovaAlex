@@ -1,0 +1,38 @@
+databaseChangeLog:
+
+  - property:
+      name: changelog_name
+      value: create_authors
+      global: false
+
+  - changeSet:
+      id: ${changelog_name}_00
+      author: simonova
+      changes:
+        - tagDatabase:
+            tag: ${changelog_name}_start
+
+  - changeSet:
+      dbms: h2
+      id: ${changelog_name}_01
+      author: simonova
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+            - tableExists:
+                tableName: authors
+      changes:
+        - createTable: # создаем новую таблицу
+            tableName: authors
+            columns: # объявления колонок
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: full_name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false

@@ -5,15 +5,16 @@ import ru.otus.hw.models.Book;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.UUID;
 
 public interface BookService {
-    Optional<Book> findById(long id);
+    Optional<Book> findById(UUID id);
 
     List<Book> findAll();
 
-    Book insert(String title, long authorId, Set<Long> genresIds);
+    Book insert(String title, UUID authorId, Set<UUID> genresIds);
 
-    Book update(long id, String title, long authorId, Set<Long> genresIds);
+    Book update(UUID id, String title, UUID authorId, Set<UUID> genresIds);
 
-    void deleteById(long id);
+    void deleteById(UUID id);
 }

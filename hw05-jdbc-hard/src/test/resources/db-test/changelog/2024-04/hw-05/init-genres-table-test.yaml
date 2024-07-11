@@ -1,0 +1,177 @@
+databaseChangeLog:
+
+  - property:
+      contextFilter: test
+      name: changelog_name
+      value: init_genres_test
+      global: false
+
+  - changeSet:
+      id: ${changelog_name}_00
+      author: simonova
+      changes:
+        - tagDatabase:
+            tag: ${changelog_name}_start
+
+  - changeSet:
+      dbms: h2
+      id: ${changelog_name}_01
+      author: simonova
+      preConditions:
+        - onFail: MARK_RAN
+        - tableExist: genres
+          and:
+            - sqlCheck:
+                expectedResult: 0
+                sql: select count(*) from testdb.genres where genres.name = 'Genre_1'
+
+
+      changes:
+        - insert:
+            tableName: genres
+            columns:
+              - column:
+                  name: id
+                  valueComputed: random_uuid()
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: name
+                  value: 'Genre_1'
+
+  - changeSet:
+      dbms: h2
+      id: ${changelog_name}_02
+      author: simonova
+      preConditions:
+        - onFail: MARK_RAN
+        - tableExist: genres
+          and:
+            - sqlCheck:
+                expectedResult: 0
+                sql: select count(*) from testdb.genres where genres.name = 'Genre_2'
+
+
+      changes:
+        - insert:
+            tableName: genres
+            columns:
+              - column:
+                  name: id
+                  valueComputed: random_uuid()
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: name
+                  value: 'Genre_2'
+
+
+  - changeSet:
+      dbms: h2
+      id: ${changelog_name}_03
+      author: simonova
+      preConditions:
+        - onFail: MARK_RAN
+        - tableExist: genres
+          and:
+            - sqlCheck:
+                expectedResult: 0
+                sql: select count(*) from testdb.genres where genres.name = 'Genre_3'
+
+
+      changes:
+        - insert:
+            tableName: genres
+            columns:
+              - column:
+                  name: id
+                  valueComputed: random_uuid()
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: name
+                  value: 'Genre_3'
+
+  - changeSet:
+      dbms: h2
+      id: ${changelog_name}_04
+      author: simonova
+      preConditions:
+        - onFail: MARK_RAN
+        - tableExist: genres
+          and:
+            - sqlCheck:
+                expectedResult: 0
+                sql: select count(*) from testdb.genres where genres.name = 'Genre_4'
+
+
+      changes:
+        - insert:
+            tableName: genres
+            columns:
+              - column:
+                  name: id
+                  valueComputed: random_uuid()
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: name
+                  value: 'Genre_4'
+
+  - changeSet:
+      dbms: h2
+      id: ${changelog_name}_05
+      author: simonova
+      preConditions:
+        - onFail: MARK_RAN
+        - tableExist: genres
+          and:
+            - sqlCheck:
+                expectedResult: 0
+                sql: select count(*) from testdb.genres where genres.name = 'Genre_5'
+
+
+      changes:
+        - insert:
+            tableName: genres
+            columns:
+              - column:
+                  name: id
+                  valueComputed: random_uuid()
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: name
+                  value: 'Genre_5'
+
+  - changeSet:
+      dbms: h2
+      id: ${changelog_name}_06
+      author: simonova
+      preConditions:
+        - onFail: MARK_RAN
+        - tableExist: genres
+          and:
+            - sqlCheck:
+                expectedResult: 0
+                sql: select count(*) from testdb.genres where genres.name = 'Genre_6'
+
+
+      changes:
+        - insert:
+            tableName: genres
+            columns:
+              - column:
+                  name: id
+                  valueComputed: random_uuid()
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: name
+                  value: 'Genre_6'

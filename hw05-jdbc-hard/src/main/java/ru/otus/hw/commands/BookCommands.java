@@ -7,6 +7,7 @@ import ru.otus.hw.converters.BookConverter;
 import ru.otus.hw.services.BookService;
 
 import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @SuppressWarnings({"SpellCheckingInspection", "unused"})
@@ -26,29 +27,29 @@ public class BookCommands {
     }
 
     @ShellMethod(value = "Find book by id", key = "bbid")
-    public String findBookById(long id) {
+    public String findBookById(UUID id) {
         return bookService.findById(id)
                 .map(bookConverter::bookToString)
-                .orElse("Book with id %d not found".formatted(id));
+                .orElse("Book with id %s not found".formatted(id.toString()));
     }
 
-    // bins newBook 1 1,6
+    // выгрузить авторов и жанры, чтобы увидеть айдишники
     @ShellMethod(value = "Insert book", key = "bins")
-    public String insertBook(String title, long authorId, Set<Long> genresIds) {
+    public String insertBook(String title, UUID authorId, Set<UUID> genresIds) {
         var savedBook = bookService.insert(title, authorId, genresIds);
         return bookConverter.bookToString(savedBook);
     }
 
-    // bupd 4 editedBook 3 2,5
+    // сначала нужно выгрузить все, потом взять айдишники и удалить
     @ShellMethod(value = "Update book", key = "bupd")
-    public String updateBook(long id, String title, long authorId, Set<Long> genresIds) {
+    public String updateBook(UUID id, String title, UUID authorId, Set<UUID> genresIds) {
         var savedBook = bookService.update(id, title, authorId, genresIds);
         return bookConverter.bookToString(savedBook);
     }
 
-    // bdel 4
+    // сначала нужно выгрузить все, потом взять айдишник и удалить
     @ShellMethod(value = "Delete book by id", key = "bdel")
-    public void deleteBook(long id) {
+    public void deleteBook(UUID id) {
         bookService.deleteById(id);
     }
 }

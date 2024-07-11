@@ -1,0 +1,166 @@
+databaseChangeLog:
+
+  - property:
+      contextFilter: test
+      name: changelog_name
+      value: init_books_genres_test
+      global: false
+
+  - changeSet:
+      id: ${changelog_name}_00
+      author: simonova
+      changes:
+        - tagDatabase:
+            tag: ${changelog_name}_start
+
+  - changeSet:
+      dbms: h2
+      id: ${changelog_name}_01
+      author: simonova
+      preConditions:
+        - onFail: MARK_RAN
+        - tableExist: books_genres
+
+      changes:
+        - insert:
+            tableName: books_genres
+            columns:
+              - column:
+                  name: book_id
+                  valueComputed: (select b.id from books b where b.title = 'Title_1')
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: genre_id
+                  valueComputed: (select g.id from genres g where g.name = 'Genre_1')
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+
+
+  - changeSet:
+      dbms: h2
+      id: ${changelog_name}_02
+      author: simonova
+      preConditions:
+        - onFail: MARK_RAN
+        - tableExist: books_genres
+
+      changes:
+        - insert:
+            tableName: books_genres
+            columns:
+              - column:
+                  name: book_id
+                  valueComputed: (select b.id from books b where b.title = 'Title_1')
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: genre_id
+                  valueComputed: (select g.id from genres g where g.name = 'Genre_2')
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+
+  - changeSet:
+      dbms: h2
+      id: ${changelog_name}_03
+      author: simonova
+      preConditions:
+        - onFail: MARK_RAN
+        - tableExist: books_genres
+
+      changes:
+        - insert:
+            tableName: books_genres
+            columns:
+              - column:
+                  name: book_id
+                  valueComputed: (select b.id from books b where b.title = 'Title_2')
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: genre_id
+                  valueComputed: (select g.id from genres g where g.name = 'Genre_3')
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+
+  - changeSet:
+      dbms: h2
+      id: ${changelog_name}_04
+      author: simonova
+      preConditions:
+        - onFail: MARK_RAN
+        - tableExist: books_genres
+
+      changes:
+        - insert:
+            tableName: books_genres
+            columns:
+              - column:
+                  name: book_id
+                  valueComputed: (select b.id from books b where b.title = 'Title_2')
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: genre_id
+                  valueComputed: (select g.id from genres g where g.name = 'Genre_4')
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+
+
+  - changeSet:
+      dbms: h2
+      id: ${changelog_name}_05
+      author: simonova
+      preConditions:
+        - onFail: MARK_RAN
+        - tableExist: books_genres
+
+      changes:
+        - insert:
+            tableName: books_genres
+            columns:
+              - column:
+                  name: book_id
+                  valueComputed: (select b.id from books b where b.title = 'Title_3')
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: genre_id
+                  valueComputed: (select g.id from genres g where g.name = 'Genre_5')
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+
+  - changeSet:
+      dbms: h2
+      id: ${changelog_name}_06
+      author: simonova
+      preConditions:
+        - onFail: MARK_RAN
+        - tableExist: books
+
+      changes:
+        - insert:
+            tableName: books_genres
+            columns:
+              - column:
+                  name: book_id
+                  valueComputed: (select b.id from books b where b.title = 'Title_3')
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: genre_id
+                  valueComputed: (select g.id from genres g where g.name = 'Genre_6')
+                  constraints:
+                    nullable: false
+                    primaryKey: true

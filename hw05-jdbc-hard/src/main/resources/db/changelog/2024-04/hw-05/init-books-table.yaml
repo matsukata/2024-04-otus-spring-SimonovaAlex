@@ -1,0 +1,104 @@
+databaseChangeLog:
+
+  - property:
+      name: changelog_name
+      value: init_books
+      global: false
+
+  - changeSet:
+      id: ${changelog_name}_00
+      author: simonova
+      changes:
+        - tagDatabase:
+            tag: ${changelog_name}_start
+
+  - changeSet:
+      dbms: h2
+      id: ${changelog_name}_01
+      author: simonova
+      preConditions:
+        - onFail: MARK_RAN
+        - tableExist: books
+          and:
+            - sqlCheck:
+                expectedResult: 0
+                sql: select count(*) from library.books where books.title = 'EAT THAT FROG!'
+
+
+      changes:
+        - insert:
+            tableName: books
+            columns:
+              - column:
+                  name: id
+                  valueComputed: random_uuid()
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: title
+                  value: 'EAT THAT FROG!'
+              - column:
+                  name: author_id
+                  valueComputed: (select a.id from authors a where a.full_name = 'Brian Tracy')
+
+  - changeSet:
+      dbms: h2
+      id: ${changelog_name}_02
+      author: simonova
+      preConditions:
+        - onFail: MARK_RAN
+        - tableExist: books
+          and:
+            - sqlCheck:
+                expectedResult: 0
+                sql: select count(*) from library.books where books.title = 'Getting Things Done'
+
+
+      changes:
+        - insert:
+            tableName: books
+            columns:
+              - column:
+                  name: id
+                  valueComputed: random_uuid()
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: title
+                  value: 'Getting Things Done'
+              - column:
+                  name: author_id
+                  valueComputed: (select a.id from authors a where a.full_name = 'David Allen')
+
+
+  - changeSet:
+      dbms: h2
+      id: ${changelog_name}_03
+      author: simonova
+      preConditions:
+        - onFail: MARK_RAN
+        - tableExist: books
+          and:
+            - sqlCheck:
+                expectedResult: 0
+                sql: select count(*) from library.books where books.title = 'Awaken the Giant Within'
+
+
+      changes:
+        - insert:
+            tableName: books
+            columns:
+              - column:
+                  name: id
+                  valueComputed: random_uuid()
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: title
+                  value: 'Awaken the Giant Within'
+              - column:
+                  name: author_id
+                  valueComputed: (select a.id from authors a where a.full_name = 'Tony Robbins')

@@ -1,0 +1,20 @@
+databaseChangeLog: #параметр в котором находятся миграции
+  - logicalFilePath: path-independent
+  - include: # список активных миграций
+      file: db-test/changelog/2024-04/hw-05/create-authors-table-test.yaml
+  - include: # список активных миграций
+      file: db-test/changelog/2024-04/hw-05/create-genres-table-test.yaml
+  - include: # список активных миграций
+      file: db-test/changelog/2024-04/hw-05/create-books-table-test.yaml
+  - include: # список активных миграций
+      file: db-test/changelog/2024-04/hw-05/create-books-genres-table-test.yaml
+  - include: # список активных миграций
+      file: db-test/changelog/2024-04/hw-05/init-authors-table-test.yaml
+  - include: # список активных миграций
+      file: db-test/changelog/2024-04/hw-05/init-genres-table-test.yaml
+  - include: # список активных миграций
+      file: db-test/changelog/2024-04/hw-05/init-books-table-test.yaml
+  - include: # список активных миграций
+      file: db-test/changelog/2024-04/hw-05/init-books-genres-table-test.yaml
+
+

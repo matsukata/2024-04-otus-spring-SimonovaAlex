@@ -18,8 +18,8 @@ public class BookConverter {
                 .map(genreConverter::genreToString)
                 .map("{%s}"::formatted)
                 .collect(Collectors.joining(", "));
-        return "Id: %d, title: %s, author: {%s}, genres: [%s]".formatted(
-                book.getId(),
+        return "Id: %s, title: %s, author: {%s}, genres: [%s]".formatted(
+                book.getId().toString(),
                 book.getTitle(),
                 authorConverter.authorToString(book.getAuthor()),
                 genresString);
