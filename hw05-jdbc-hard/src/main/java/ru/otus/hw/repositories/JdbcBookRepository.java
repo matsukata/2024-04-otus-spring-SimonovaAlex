@@ -36,7 +36,6 @@ public class JdbcBookRepository implements BookRepository {
 
     @Override
     public Optional<Book> findById(UUID id) {
-        Map<String, Object> params = Collections.singletonMap("id", id);
         Book book = namedParameterJdbcOperations.query("select " +
                 "books.id as bookId," +
                 "books.author_id as author," +
@@ -110,7 +109,6 @@ public class JdbcBookRepository implements BookRepository {
                 );
     }
 
-    //TODO Подумать как сделать красивее
     private void mergeBooksInfo(List<Book> booksWithoutGenres, List<Genre> genres,
                                 List<BookGenreRelation> relations) {
         for (Book book : booksWithoutGenres) {
@@ -236,14 +234,6 @@ public class JdbcBookRepository implements BookRepository {
                 //Здесь логгирование
                 return null;
             }
-        }
-    }
-
-    @RequiredArgsConstructor
-    private static class GenreResultSetExtractor implements ResultSetExtractor<Genre> {
-        @Override
-        public Genre extractData(ResultSet rs) throws SQLException, DataAccessException {
-            return null;
         }
     }
 
