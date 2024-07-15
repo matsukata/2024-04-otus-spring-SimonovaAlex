@@ -4,14 +4,13 @@ import ru.otus.hw.models.Book;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 public interface BookRepository {
-    Optional<Book> findById(UUID id);
+    Optional<Book> findById(long id);
 
     List<Book> findAll();
 
     Book save(Book book);
 
-    void deleteById(UUID id);
+    void deleteById(long id);
 }

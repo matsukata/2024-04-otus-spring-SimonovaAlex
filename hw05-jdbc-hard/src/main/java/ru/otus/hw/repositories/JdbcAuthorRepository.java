@@ -12,7 +12,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.UUID;
 
 
 @Repository
@@ -38,7 +37,7 @@ public class JdbcAuthorRepository implements AuthorRepository {
     }
 
     @Override
-    public Optional<Author> findById(UUID id) {
+    public Optional<Author> findById(long id) {
         Map<String, Object> params = Collections.singletonMap("id", id);
         Author author = namedParameterJdbcOperations.queryForObject(
                 "select id, full_name from authors where id = :id", params, new AuthorRowMapper()
@@ -49,10 +48,10 @@ public class JdbcAuthorRepository implements AuthorRepository {
     private static class AuthorRowMapper implements RowMapper<Author> {
 
         @Override
-        public Author mapRow(ResultSet resultSet, int i) throws SQLException {
-            UUID id = UUID.fromString(resultSet.getString("id"));
-            String name = resultSet.getString("full_name");
-            return new Author(id, name);
+        public Author mapRow(ResultSet rs, int i) throws SQLException {
+            String id = rs.getString("id");
+            String name = rs.getString("full_name");
+            return new Author(Long.parseLong(id), name);
         }
     }
 }

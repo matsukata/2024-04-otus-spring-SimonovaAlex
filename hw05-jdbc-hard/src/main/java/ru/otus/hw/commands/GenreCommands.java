@@ -23,3 +23,4 @@ public class GenreCommands {
                 .collect(Collectors.joining("," + System.lineSeparator()));
     }
 }
+
