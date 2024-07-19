@@ -91,7 +91,7 @@ public class JdbcBookRepository implements BookRepository {
         return namedParameterJdbcOperations
                 .query(
                         "select * from books_genres",
-                        new JdbcBookRepository.BookGenreRowMapper()
+                        new BookGenreRowMapper()
                 );
     }
 
@@ -188,41 +188,33 @@ public class JdbcBookRepository implements BookRepository {
         }
     }
 
-    // Использовать для findById
     @SuppressWarnings("ClassCanBeRecord")
     @RequiredArgsConstructor
     private static class BookResultSetExtractor implements ResultSetExtractor<Book> {
 
         @Override
-        public Book extractData(ResultSet rs) throws SQLException, DataAccessException {
+        public Book extractData(ResultSet rs) throws DataAccessException {
             try {
-                List<Book> list = new ArrayList<>();
+                Book book = null;
+                if (!rs.isBeforeFirst()) {
+                    return book;
+                }
                 List<Genre> genres = new ArrayList<>();
                 while (rs.next()) {
                     String id = rs.getString("bookId");
                     String authorId = rs.getString("author");
                     String title = rs.getString("title");
                     String fullName = rs.getString("fullName");
-
-                    list.add(Book.builder()
-                            .id(Long.parseLong(id))
-                            .author(new Author(Long.parseLong(authorId), fullName))
-                            .title(title)
-                            .build());
-
+                    book = Book.builder().id(Long.parseLong(id))
+                            .author(new Author(Long.parseLong(authorId), fullName)).title(title).build();
                     String genreId = rs.getString("genreId");
                     String genreName = rs.getString("genreName");
-
                     genres.add(new Genre(Long.parseLong(genreId), genreName));
                 }
-                if (list.isEmpty()) {
-                    throw new EntityNotFoundException("Book is not found");
-                }
-                Book book = list.iterator().next();
+                assert book != null;
                 book.setGenres(genres);
                 return book;
-            } catch (EntityNotFoundException ex) {
-                //Здесь логгирование
+            } catch (Exception ex) {
                 return null;
             }
         }
