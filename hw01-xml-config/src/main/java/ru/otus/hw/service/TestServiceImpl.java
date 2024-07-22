@@ -10,7 +10,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TestServiceImpl implements TestService {
     public static final int INCREMENT = 1;
-    
+
     private final IOService ioService;
 
     private final QuestionDao questionDao;

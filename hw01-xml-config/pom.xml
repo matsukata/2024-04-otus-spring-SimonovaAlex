@@ -9,11 +9,11 @@
     <artifactId>hw01-xml-config</artifactId>
     <version>1.0</version>
 
-<!--    <parent>-->
-<!--        <artifactId>2024-04-otus-spring-SimonovaAlex</artifactId>-->
-<!--        <groupId>ru.otus</groupId>-->
-<!--        <version>1.0</version>-->
-<!--    </parent>-->
+    <parent>
+        <artifactId>2024-04-otus-spring-SimonovaAlex</artifactId>
+        <groupId>ru.otus</groupId>
+        <version>1.0</version>
+    </parent>
 
     <properties>
         <maven.compiler.target>17</maven.compiler.target>

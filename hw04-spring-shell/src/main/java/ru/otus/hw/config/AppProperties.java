@@ -8,7 +8,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import java.util.Locale;
 import java.util.Map;
 
-
 @ConfigurationProperties(prefix = "test")
 @Setter
 @AllArgsConstructor

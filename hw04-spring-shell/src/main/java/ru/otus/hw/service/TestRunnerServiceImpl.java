@@ -6,13 +6,14 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class TestRunnerServiceImpl implements TestRunnerService, CommandLineRunner {
+public class TestRunnerServiceImpl implements CommandLineRunner, TestRunnerService {
 
     private final TestService testService;
 
     private final StudentService studentService;
 
     private final ResultService resultService;
+
 
     @Override
     public void run(String... args) {

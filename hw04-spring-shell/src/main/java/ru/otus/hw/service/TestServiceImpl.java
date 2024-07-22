@@ -13,6 +13,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TestServiceImpl implements TestService {
 
+
     private static final int MIN = 1;
 
     private static final int INCREMENT = 1;
