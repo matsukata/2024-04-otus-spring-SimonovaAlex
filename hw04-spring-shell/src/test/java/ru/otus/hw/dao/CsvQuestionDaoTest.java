@@ -14,6 +14,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 class CsvQuestionDaoTest {
+    @MockBean
+    private TestRunnerServiceImpl testRunnerService;
+
     @Autowired
     private CsvQuestionDao csvQuestionDao;
 
