@@ -20,9 +20,6 @@ class CsvQuestionDaoTest {
     @Autowired
     private CsvQuestionDao csvQuestionDao;
 
-    @MockBean
-    private TestRunnerServiceImpl testRunnerService;
-
     @Test
     void findAll() {
         assertThat(csvQuestionDao.findAll().size()).isEqualTo(3);
