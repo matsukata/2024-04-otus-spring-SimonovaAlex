@@ -1,0 +1,4 @@
+# Добавить сюда своих вопросов. Эту строку надо пропустить при настройке CsvToBean (withSkipLines)
+What is spring boot?;It's stand-alone application with embedded Tomcat, Jetty, Undertow%true|don't know%false|app%false
+For what we use starters?;To simplify adding dependencies%true|Don't know%false|Is it about auto?%false
+What is the Undertow?;Is it a library?%false|is it a bootstrap?%false|Embedded container of servlets(web-server)%true|framework%false
