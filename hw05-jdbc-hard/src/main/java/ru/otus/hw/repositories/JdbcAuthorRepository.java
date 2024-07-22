@@ -16,6 +16,8 @@ import java.util.Optional;
 @Repository
 @AllArgsConstructor
 public class JdbcAuthorRepository implements AuthorRepository {
+    private static final int LIST_SIZE = 1;
+
     private final NamedParameterJdbcOperations namedParameterJdbcOperations;
 
     @Override
@@ -26,11 +28,12 @@ public class JdbcAuthorRepository implements AuthorRepository {
 
     @Override
     public Optional<Author> findById(long id) {
-        Author author = (Author) namedParameterJdbcOperations.query(
-                "select authors.id as id, authors.full_name as full_name from authors where id = :id",
+        List<Author> authors = namedParameterJdbcOperations.query(
+                "select authors.id as id, authors.full_name as full_name from authors where authors.id = :id",
                 new MapSqlParameterSource().addValue("id", id), new AuthorRowMapper()
         );
-        return Optional.of(author);
+
+        return authors.size() == LIST_SIZE ? Optional.of(authors.get(0)) : Optional.empty();
     }
 
     private static class AuthorRowMapper implements RowMapper<Author> {
